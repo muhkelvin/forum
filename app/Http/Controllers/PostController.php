@@ -32,4 +32,6 @@ class PostController extends Controller
     {
         return view('posts.show', compact('post'));
     }
+
+
 }
