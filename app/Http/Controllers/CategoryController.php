@@ -24,4 +24,11 @@ class CategoryController extends Controller
         Category::create($request->all());
         return redirect()->route('categories.index');
     }
+
+    public function show(Category $category)
+    {
+        $posts = $category->post()->with('user')->paginate(10);
+
+        return view('categories.show', compact('category', 'posts'));
+    }
 }

@@ -8,9 +8,27 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('category', 'user')->get();
+        $query = Post::with('category', 'user');
+
+        // Pencarian berdasarkan judul atau konten
+        if ($request->has('search')) {
+            $query->where('title', 'like', '%' . $request->search . '%')
+                ->orWhere('body', 'like', '%' . $request->search . '%');
+        }
+
+        // Filter berdasarkan urutan terbaru atau terlama
+        if ($request->has('filter')) {
+            if ($request->filter == 'latest') {
+                $query->orderBy('created_at', 'desc');
+            } elseif ($request->filter == 'new') {
+                $query->orderBy('created_at', 'asc');
+            }
+        }
+
+        $posts = $query->paginate(10);
+
         return view('posts.index', compact('posts'));
     }
 
@@ -20,11 +38,12 @@ class PostController extends Controller
         return view('posts.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request,Post $post)
     {
-        $request->validate(['title' => 'required', 'content' => 'required', 'category_id' => 'required']);
+        $request->validate(['title' => 'required', 'body' => 'required', 'category_id' => 'required']);
         $request->merge(['user_id' => auth()->id()]);
-        Post::create($request->all());
+//        Post::create($request->all());
+        $post->create($request->all());
         return redirect()->route('posts.index');
     }
 

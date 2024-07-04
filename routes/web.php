@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+    Route::get('/author/{user}', [ProfileController::class, 'showPosts'])->name('author.posts');
 Route::middleware(['auth'])->group(function () {
     Route::resource('categories', CategoryController::class);
     Route::resource('posts', PostController::class);

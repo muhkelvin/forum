@@ -11,7 +11,7 @@
             </div>
             <div>
                 <label for="content" class="block mb-2 text-sm font-medium text-gray-900">Post Content</label>
-                <textarea name="content" id="content" placeholder="Post Content" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-32 resize-none" required></textarea>
+                <textarea name="body" id="content" placeholder="Post Content" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 h-32 resize-none" required></textarea>
             </div>
             <div>
                 <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900">Category</label>
